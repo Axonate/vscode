@@ -1,0 +1,59 @@
+{
+  "name": "axonate",
+  "displayName": "Axonate",
+  "description": "Chat with your team's Axonate AI gateway — one key, every model — right inside VS Code.",
+  "version": "0.1.0",
+  "publisher": "axonate",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/Axonate/vscode.git" },
+  "homepage": "https://github.com/Axonate/axonate",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Machine Learning", "Other"],
+  "keywords": ["ai", "llm", "openai", "claude", "codex", "axonate", "gateway"],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "axonate.ask", "title": "Axonate: Ask" },
+      { "command": "axonate.askSelection", "title": "Axonate: Ask about selection" }
+    ],
+    "menus": {
+      "editor/context": [
+        { "command": "axonate.askSelection", "when": "editorHasSelection", "group": "navigation@9" }
+      ]
+    },
+    "configuration": {
+      "title": "Axonate",
+      "properties": {
+        "axonate.url": {
+          "type": "string",
+          "default": "http://127.0.0.1:4100",
+          "description": "Axonate gateway base URL (e.g. https://axonate.yourdomain.com)."
+        },
+        "axonate.apiKey": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Your Axonate virtual key (Bearer token)."
+        },
+        "axonate.model": {
+          "type": "string",
+          "default": "auto",
+          "enum": ["auto", "claude", "codex", "minimax"],
+          "description": "Model to use. 'auto' lets the gateway route."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0",
+    "@vscode/vsce": "^2.24.0"
+  }
+}
